@@ -726,11 +726,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\NICOLAS-LAPTOP\\Documents\\TPS-IA\\TPS-IA.csproj",
+      "projectUniqueName": "C:\\Users\\NICOLAS-LAPTOP\\Documents\\TSP-C-Unity\\TPS-IA.csproj",
       "projectName": "TPS-IA",
-      "projectPath": "C:\\Users\\NICOLAS-LAPTOP\\Documents\\TPS-IA\\TPS-IA.csproj",
+      "projectPath": "C:\\Users\\NICOLAS-LAPTOP\\Documents\\TSP-C-Unity\\TPS-IA.csproj",
       "packagesPath": "C:\\Users\\NICOLAS-LAPTOP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\NICOLAS-LAPTOP\\Documents\\TPS-IA\\obj\\",
+      "outputPath": "C:\\Users\\NICOLAS-LAPTOP\\Documents\\TSP-C-Unity\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
