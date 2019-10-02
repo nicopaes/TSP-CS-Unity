@@ -1,0 +1,11 @@
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\bin\Debug\netcoreapp2.1\TPS-IA.deps.json
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\bin\Debug\netcoreapp2.1\TPS-IA.runtimeconfig.json
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\bin\Debug\netcoreapp2.1\TPS-IA.runtimeconfig.dev.json
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\bin\Debug\netcoreapp2.1\TPS-IA.dll
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\bin\Debug\netcoreapp2.1\TPS-IA.pdb
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\obj\Debug\netcoreapp2.1\TPS-IA.csprojAssemblyReference.cache
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\obj\Debug\netcoreapp2.1\TPS-IA.csproj.CoreCompileInputs.cache
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\obj\Debug\netcoreapp2.1\TPS-IA.AssemblyInfoInputs.cache
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\obj\Debug\netcoreapp2.1\TPS-IA.AssemblyInfo.cs
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\obj\Debug\netcoreapp2.1\TPS-IA.dll
+C:\Users\NICOLAS-LAPTOP\Documents\TPS-IA\obj\Debug\netcoreapp2.1\TPS-IA.pdb
