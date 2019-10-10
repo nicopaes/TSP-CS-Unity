@@ -5,16 +5,18 @@ namespace TPS_IA
 {
     public class Tour
     {
-        public int Size;
+        public int Size
+        {
+            get { return Cities.Count; } 
+        }
         public List<int> Cities;
 
         public Tour(int tourSize, int[] listCities)
         {
-            Size = tourSize;
-            Cities = new List<int>(this.Size);
+            Cities = new List<int>(tourSize);
             if (listCities.Length >= tourSize)
             {
-                for (int i = 0; i < Size; i++)
+                for (int i = 0; i < tourSize; i++)
                 {
                     if(!AddNewCity(listCities[i])) 
                     {
@@ -38,13 +40,31 @@ namespace TPS_IA
                 Cities.Add(newCity);
                 return true;
             }
+            else if(this.Cities.Exists( x => Cities[0] == newCity))
+            {
+                Cities.Add(newCity);
+                return true;
+            }
             else
             {
                 return false;
             }
                         
         }
-
+        public override string ToString()
+        {
+            string returnString = "";
+            foreach (int city in this.Cities)
+            {
+                returnString += " " + city;
+            }
+            return returnString;
+        }
+        
+        public bool CheckStartEnd()
+        {
+            return Cities[0] == Cities[Size-1];
+        }
     }
 
 }
