@@ -63,7 +63,7 @@ namespace TPS_IA
 
         }
 
-        public static float UglyPermutBruteForce(tspclass tsp,out int permutCount)
+        public static float UglyPermutBruteForce(tspclass tsp, out int permutCount)
         {
             float bestDistance = 0;
             permutCount = 0;
@@ -87,15 +87,30 @@ namespace TPS_IA
 
                 float newDistance = tsp.GetTourDistance(newT);
 
-                if(permutCount== 0) bestDistance = newDistance;
+                if (permutCount == 0) bestDistance = newDistance;
 
                 //Console.WriteLine(newT.ToString() + "::> " + newDistance);
 
-                if(newDistance < bestDistance) bestDistance = newDistance;
+                if (newDistance < bestDistance) bestDistance = newDistance;
                 permutCount++;
             }
 
             return bestDistance;
+        }
+
+        public static void ClearCurrentConsoleLine()
+        {
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
+            Console.Write(new string(' ', Console.BufferWidth));
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
+        }
+        public static string PrintStopwatch(TimeSpan ts)
+        {
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            ts.Hours, ts.Minutes, ts.Seconds,
+            ts.Milliseconds / 10);
+            
+            return elapsedTime;
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
+using System.Threading;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -12,14 +14,15 @@ namespace TPS_IA
         {
             ParseTPS parser = new ParseTPS();
             tspclass tspFile = null;
+            Stopwatch stopWatch = new Stopwatch();
             string fileName;
 
             List<Tour> ListTours = new List<Tour>();
             //ListTours.Add(new Tour(7,new List<int>{0,1,2,3,4,5,6}.ToArray())); //TODO Change this to a proper Array
-            //Tour startTour = new Tour(18, new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0 }.ToArray());
+            Tour startTour = new Tour(18, new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0 }.ToArray());
             //Tour startTour = new Tour(6, new List<int> { 2, 1, 3, 5, 4, 2}.ToArray());
             //Tour startTour = new Tour(6, new List<int> { 0, 1, 2, 3, 4, 0 }.ToArray());
-            //Tour startTour = new Tour(7, new List<int> { 0, 1, 2, 3, 4, 5, 0 }.ToArra());
+            //Tour startTour = new Tour(7, new List<int> { 0, 1, 2, 3, 4, 5, 0 }.ToArray());
 
             // for (int i = 0; i < 4; i++)
             // {
@@ -41,7 +44,7 @@ namespace TPS_IA
             // Console.WriteLine("fileName:  " + fileName);
             // Console.ReadKey();
 
-            fileName = "ni6";
+            fileName = "gr17";
 
             bool fileExists = File.Exists(@"tspjson/" + fileName + ".json");
             if (fileExists)
@@ -96,17 +99,20 @@ namespace TPS_IA
 
 
             //FULL TWO OPT SWAP
-            Tour startTour = new Tour(tspFile.Dimension+1, Utils.GenerateStartList(tspFile.Dimension+1).ToArray());
+            //Tour startTour = new Tour(tspFile.Dimension+1, Utils.GenerateStartList(tspFile.Dimension+1).ToArray());
             ListTours.Add(startTour);
             Tour startTourFList = ListTours[0];
 
-            Console.WriteLine("\nFULL TWO OPT SWAP\n");
+            Console.WriteLine("\nFULL TWO OPT SWAP\n\n");
             int twoOpBesttIterations = 0;
             int twoOpSwaptIterations = 0;
             int twoOpGoodSwaptIterations = 0;
 
             Tour twoOptBestTour = new Tour();
+            stopWatch.Start();
             float twoOptBestDistance = TwoOptSwap.FullTwoOpt(tspFile, startTourFList, out twoOpBesttIterations, out twoOpSwaptIterations, out twoOpGoodSwaptIterations, out twoOptBestTour);
+            stopWatch.Stop();
+            Console.WriteLine("TIME: " + Utils.PrintStopwatch(stopWatch.Elapsed));
 
             Console.Write("::> " + startTourFList.ToString() + "  START TOUR DISTANCE: " + tspFile.GetTourDistance(startTourFList) + "\n");
             if (twoOpBesttIterations != -1)
@@ -122,8 +128,8 @@ namespace TPS_IA
             Console.WriteLine();
 
             int permutcount = 0;
-            float uglyPermut = Utils.UglyPermutBruteForce(tspFile,out permutcount);
-            Console.WriteLine("UGLY PERMUT: " + uglyPermut + "::" + permutcount);
+            //float uglyPermut = Utils.UglyPermutBruteForce(tspFile,out permutcount);
+            //Console.WriteLine("UGLY PERMUT: " + uglyPermut + "::" + permutcount);
 
             // foreach (int[] test in Utils.Permut(new int[] { 0, 1, 2, 4, 5 }))
             // {

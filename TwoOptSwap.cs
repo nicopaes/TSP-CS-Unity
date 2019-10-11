@@ -10,6 +10,7 @@ namespace TPS_IA
         public static List<Tour> totalSwapedTours = new List<Tour>();
         public static Tour GetTwoOptSwap(Tour tourToChange, int a, int b)
         {
+            //Console.WriteLine("2C: " + tourToChange.ToString());
 
             Tour returnTour = new Tour();
             List<int> tempList = new List<int>();
@@ -30,9 +31,15 @@ namespace TPS_IA
                 returnTour.AddNewCity(city);
             }
 
-            for (int i = b + 1; i < tourToChange.Size; i++)
+            for (int i = b + 1; i < tourToChange.Size-1; i++)
             {
                 returnTour.AddNewCity(tourToChange.Cities[i]);
+            }
+            returnTour.AddNewCity(returnTour.Cities[0]);
+
+            if(returnTour.Size > tourToChange.Size || !returnTour.CheckStartEnd()) 
+            {
+                Console.WriteLine(tourToChange.ToString() + " NOPE " + returnTour.ToString() + "AB:" + a + ":" + b +"\n");
             }
             //Console.WriteLine(tourToChange.ToString());
             //Console.WriteLine("AB: " + a + "::" + b);
@@ -49,6 +56,7 @@ namespace TPS_IA
             goodSwapIterations = 0;
             swapIterations = 0;
             int limit = 0;
+            int ILS = 0;
             bestTour = null;
 
             if (tsp.Dimension + 1 != StartTour.Size)
@@ -65,41 +73,65 @@ namespace TPS_IA
 
             //LAST BRUTE 2000 && 100000
             //while (newBestIterations < 50 && limit < 250 && swapIterations < 1)
-            while(bestDistance != tsp.OptDistance && limit < 500)
+            //(bestDistance != tsp.OptDistance && limit < 500)
+            while (ILS < 4000 && bestDistance != tsp.OptDistance)//(bestDistance != tsp.OptDistance)
             {
-                for (var i = 1; i < StartTour.Size; i++)
+                if (ILS != 0)
                 {
-                    for (var k = i + 1; k < StartTour.Size; k++)
+                    List<int> fourOptRandom = Utils.GenerateStartList(4);
+                    fourOptRandom.Sort();
+                    swapedTour = FourOptSwap.GetFourOptSwap(swapedTour, fourOptRandom[0], fourOptRandom[1], fourOptRandom[2], fourOptRandom[3]);
+                    limit = 0;
+                }
+
+                while (limit <= 150)
+                {
+                    for (var i = 1; i < StartTour.Size-1; i++)
                     {
-                        swapIterations++;
-                        swapedTour = GetTwoOptSwap(swapedTour, i, k);
+                        for (var k = i + 1; k < StartTour.Size-1; k++)
+                        {
+                            swapIterations++;
+                            swapedTour = GetTwoOptSwap(swapedTour, i, k);
 
-                        if (!swapedTour.CheckStartEnd())
-                        {
-                            continue;
-                        }
-                        goodSwapIterations++;
-                        float newDistance = tsp.GetTourDistance(swapedTour);
-                        
-                        //Console.WriteLine(swapedTour.ToString() + " D: " + newDistance);
+                            if (!swapedTour.CheckStartEnd())
+                            {
+                                Console.WriteLine("Q");
+                                continue;
+                            }
+                            goodSwapIterations++;
+                            float newDistance = tsp.GetTourDistance(swapedTour);
 
-                        if (newDistance >= bestDistance)
-                        {
-                            continue;
-                        }
-                        else //if (newDistance < bestDistance)
-                        {
-                            //We have a new winner
-                            //Console.WriteLine("B: " + bestDistance + "  ND: " + newDistance);
-                            //Console.WriteLine("L: " + limit + " SI: " + swapIterations + " BI: " + newBestIterations + "  NEW: " + newDistance + "  BEST: " + bestDistance);
-                            bestDistance = newDistance;
-                            bestTour = swapedTour;
-                            newBestIterations ++;
+                            //Console.WriteLine(swapedTour.ToString() + " D: " + newDistance);
+
+                            if (newDistance >= bestDistance)
+                            {
+                                continue;
+                            }
+                            else //if (newDistance < bestDistance)
+                            {
+                                //We have a new winner
+                                //Console.WriteLine("NEW BEST: " + newBestIterations + "  DISTANCE: " + newDistance + "\n");
+                                //Console.WriteLine("L: " + limit + " SI: " + swapIterations + " BI: " + newBestIterations + "  NEW: " + newDistance + "  BEST: " + bestDistance);
+
+                                bestDistance = newDistance;
+                                bestTour = swapedTour;
+                                newBestIterations++;
+                            }
                         }
                     }
+                    if(limit %5 == 0)
+                    {
+                        //Utils.ClearCurrentConsoleLine();
+                        //Console.WriteLine("  L: " + limit);
+                    }
+                    limit++;
                 }
-                limit++;
-                //Console.WriteLine("L: " + limit + " SI: " + swapIterations + " BI: " + newBestIterations + "  BEST: " + bestDistance + ":: " +  swapedTour.ToString());
+                // Console.WriteLine("AI: " + swapedTour);
+                ILS++;
+                // Utils.ClearCurrentConsoleLine();
+                // Utils.ClearCurrentConsoleLine();
+                if(ILS%500 == 0) Console.WriteLine("-----------ILS: " + ILS);
+                // Console.WriteLine();
             }
             Console.WriteLine();
             return bestDistance;

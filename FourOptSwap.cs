@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TPS_IA
 {
-    public class FourOptSwap
+    public static class FourOptSwap
     {
         public static Tour GetFourOptSwap(Tour tourToChange, int a, int b, int c, int d)
         {
@@ -31,11 +31,12 @@ namespace TPS_IA
                 LIST_D.Add(tourToChange.Cities[i]);
             }
 
-            foreach (int city in LIST_A)
+            
+            foreach (int city in LIST_D)
             {
                 returnTour.AddNewCity(city);
             }
-            foreach (int city in LIST_D)
+            foreach (int city in LIST_A) // THIS SHOULDN'T BE HERE
             {
                 returnTour.AddNewCity(city);
             }
@@ -49,9 +50,9 @@ namespace TPS_IA
             }
             returnTour.AddNewCity(returnTour.Cities[0]); 
 
-            Console.WriteLine(tourToChange.ToString());
+            //Console.WriteLine("TC: " + tourToChange.ToString());
             //Console.WriteLine("AB: " + a + "::" + b);
-            Console.WriteLine(returnTour.ToString());
+            //Console.WriteLine("RT: " + returnTour.ToString() + "\n");
 
             return returnTour;
         }
