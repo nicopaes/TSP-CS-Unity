@@ -138,6 +138,9 @@ namespace TPS_IA
             //     Console.WriteLine();
             // }
             Console.WriteLine("PERMUT COUNT: " + permutcount);
+
+            Tour testFourOptTour = FourOptSwap.GetFourOptSwap(new Tour(8,new List<int>{0,1,2,3,4,5,6,0}.ToArray()),1,3,5,6);
+            Console.WriteLine(" 4 OPT TEST: " + testFourOptTour.ToString());
         }
     }
 }
