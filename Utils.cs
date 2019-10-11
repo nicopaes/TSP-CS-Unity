@@ -33,6 +33,31 @@ namespace TPS_IA
             }
         }
 
+        public static List<int> GenerateRandomSet(int sizeSet)
+        {
+            Random r = new Random();
+            if (sizeSet >= 0)
+            {
+                List<int> deckInt = new List<int>();
+                List<int> shuffleDeckInt = new List<int>();
+
+                while (shuffleDeckInt.Count != 4)
+                {
+                    int randIndex = r.Next(0, sizeSet);
+                    if (!shuffleDeckInt.Contains(randIndex))
+                    {
+                        shuffleDeckInt.Add(randIndex);
+                    }
+                }
+                shuffleDeckInt.Sort();
+                return shuffleDeckInt;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static IEnumerable<int[]> Permut(int[] arr)
         {
             while (true)
@@ -109,7 +134,7 @@ namespace TPS_IA
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
             ts.Hours, ts.Minutes, ts.Seconds,
             ts.Milliseconds / 10);
-            
+
             return elapsedTime;
         }
     }

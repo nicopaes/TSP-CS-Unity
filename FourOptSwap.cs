@@ -7,13 +7,13 @@ namespace TPS_IA
     {
         public static Tour GetFourOptSwap(Tour tourToChange, int a, int b, int c, int d)
         {
-
             Tour returnTour = new Tour();
             List<int> LIST_A = new List<int>();
             List<int> LIST_B = new List<int>();
             List<int> LIST_C = new List<int>();
             List<int> LIST_D = new List<int>();
 
+            //ADDING TO LIST
             for (int i = 0; i <= a ; i++)
             {
                 LIST_A.Add(tourToChange.Cities[i]);
@@ -30,13 +30,13 @@ namespace TPS_IA
             {
                 LIST_D.Add(tourToChange.Cities[i]);
             }
-
-            
-            foreach (int city in LIST_D)
+ 
+            //ADDING TO TOUR IN FORMAT ADCB
+            foreach (int city in LIST_A)
             {
                 returnTour.AddNewCity(city);
             }
-            foreach (int city in LIST_A) // THIS SHOULDN'T BE HERE
+            foreach (int city in LIST_D)
             {
                 returnTour.AddNewCity(city);
             }

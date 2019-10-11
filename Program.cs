@@ -19,7 +19,7 @@ namespace TPS_IA
 
             List<Tour> ListTours = new List<Tour>();
             //ListTours.Add(new Tour(7,new List<int>{0,1,2,3,4,5,6}.ToArray())); //TODO Change this to a proper Array
-            Tour startTour = new Tour(18, new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0 }.ToArray());
+            Tour startTour = new Tour(18, new List<int> { 15, 16, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 15}.ToArray());
             //Tour startTour = new Tour(6, new List<int> { 2, 1, 3, 5, 4, 2}.ToArray());
             //Tour startTour = new Tour(6, new List<int> { 0, 1, 2, 3, 4, 0 }.ToArray());
             //Tour startTour = new Tour(7, new List<int> { 0, 1, 2, 3, 4, 5, 0 }.ToArray());
@@ -110,7 +110,7 @@ namespace TPS_IA
 
             Tour twoOptBestTour = new Tour();
             stopWatch.Start();
-            float twoOptBestDistance = TwoOptSwap.FullTwoOpt(tspFile, startTourFList, out twoOpBesttIterations, out twoOpSwaptIterations, out twoOpGoodSwaptIterations, out twoOptBestTour);
+            float twoOptBestDistance = ILS.IteratedLocalSearch(tspFile, startTourFList, out twoOpBesttIterations, out twoOpSwaptIterations, out twoOpGoodSwaptIterations, out twoOptBestTour);
             stopWatch.Stop();
             Console.WriteLine("TIME: " + Utils.PrintStopwatch(stopWatch.Elapsed));
 
