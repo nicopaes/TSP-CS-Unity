@@ -61,7 +61,8 @@ namespace TPS_IA
             float bestDistance = tsp.GetTourDistance(StartTour);
             Tour swapedTour = StartTour;
 
-            while (newBestIterations < 2000 && limit < 100000)
+            //LAST BRUTE 2000 && 100000
+            while (newBestIterations < 50 && limit < 100000)
             {
                 for (var i = 1; i < StartTour.Size - 1; i++)
                 {
@@ -78,14 +79,15 @@ namespace TPS_IA
                         goodSwapedTours.Add(swapedTour);
                         float newDistance = tsp.GetTourDistance(swapedTour);
 
-                        if (newDistance < bestDistance)
+                        if (newDistance >= bestDistance)
                         {
                             continue;
                         }
                         else
                         {
                             //We have a new winner
-
+                            //Console.WriteLine("B: " + bestDistance + "  ND: " + newDistance);
+                            Console.WriteLine("L: " + limit + " SI: " + swapIterations + " BI: " + newBestIterations + "  BEST: " + bestDistance);
                             bestDistance = newDistance;
                             bestTour = swapedTour;
                             newBestIterations ++;
@@ -93,7 +95,7 @@ namespace TPS_IA
                     }
                 }
                 limit++;
-                Console.WriteLine("L: " + limit + " SI: " + swapIterations + " BI: " + newBestIterations);
+                Console.WriteLine("L: " + limit + " SI: " + swapIterations + " BI: " + newBestIterations + "  BEST: " + bestDistance);
             }
             Console.WriteLine();
             return bestDistance;
