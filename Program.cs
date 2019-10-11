@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -15,19 +16,37 @@ namespace TPS_IA
 
             List<Tour> ListTours = new List<Tour>();
             //ListTours.Add(new Tour(7,new List<int>{0,1,2,3,4,5,6}.ToArray())); //TODO Change this to a proper Array
-            Tour startTour = new Tour(18, new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0}.ToArray());
+            //Tour startTour = new Tour(18, new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0 }.ToArray());
+            //Tour startTour = new Tour(6, new List<int> { 2, 1, 3, 5, 4, 2}.ToArray());
+            //Tour startTour = new Tour(6, new List<int> { 0, 1, 2, 3, 4, 0 }.ToArray());
+            //Tour startTour = new Tour(7, new List<int> { 0, 1, 2, 3, 4, 5, 0 }.ToArra());
 
-            Console.WriteLine("Please enter the name of the .tsp file");
+            // for (int i = 0; i < 4; i++)
+            // {
+            //     List<int> tempList = Utils.GenerateStartList(6);
+            //     ListTours.Add(new Tour(6, tempList.ToArray()));
+            // }
+            // int tc = 0;
+            // foreach (Tour tour in ListTours)
+            // {
+            //     Console.WriteLine(tour.ToString());
+            //     Console.Write("TOUR LIST  " + tc + "\n");
+            //     tc++;
+            // }
 
-            fileName = Console.ReadLine();
-            Console.WriteLine("fileName:  " + fileName);
-            Console.ReadKey();
+            Console.WriteLine("\nPlease enter the name of the .tsp file\n");
+
+            // OTHER FILES JSON
+            // fileName = Console.ReadLine();
+            // Console.WriteLine("fileName:  " + fileName);
+            // Console.ReadKey();
+
+            fileName = "ni6";
 
             bool fileExists = File.Exists(@"tspjson/" + fileName + ".json");
             if (fileExists)
             {
                 tspFile = JsonConvert.DeserializeObject<tspclass>(File.ReadAllText(@"tspjson/" + fileName + ".json"));
-                ListTours.Add(new Tour(tspFile.TourSize, tspFile.OptTour));
             }
             else Console.WriteLine("File do not exist");
 
@@ -39,17 +58,18 @@ namespace TPS_IA
             {
                 Console.Write("  " + city);
             }
+
             #region Distance Matrix
             //DISTANCE MATRIX
-            // Console.WriteLine("\nDistance Matrix");
-            // foreach (int[] row in tspFile.DistanceMatrix)
-            // {
-            //     foreach (int i in row)
-            //     {
-            //         Console.Write("  " + i);
-            //     }
-            //     Console.WriteLine();
-            // }
+            Console.WriteLine("\nDistance Matrix");
+            foreach (int[] row in tspFile.DistanceMatrix)
+            {
+                foreach (int i in row)
+                {
+                    Console.Write("  " + i);
+                }
+                Console.WriteLine();
+            }
             #endregion
 
             //Console.WriteLine("TEST DISTANCE CITY\n");
@@ -74,31 +94,50 @@ namespace TPS_IA
             //     Console.Write(" " + city);
             // } Console.WriteLine();
 
+
             //FULL TWO OPT SWAP
+            Tour startTour = new Tour(tspFile.Dimension+1, Utils.GenerateStartList(tspFile.Dimension+1).ToArray());
+            ListTours.Add(startTour);
+            Tour startTourFList = ListTours[0];
+
             Console.WriteLine("\nFULL TWO OPT SWAP\n");
             int twoOpBesttIterations = 0;
             int twoOpSwaptIterations = 0;
+            int twoOpGoodSwaptIterations = 0;
 
             Tour twoOptBestTour = new Tour();
-            float twoOptBestDistance = TwoOptSwap.FullTwoOpt(tspFile, startTour, out twoOpBesttIterations,out twoOpSwaptIterations, out twoOptBestTour);
+            float twoOptBestDistance = TwoOptSwap.FullTwoOpt(tspFile, startTourFList, out twoOpBesttIterations, out twoOpSwaptIterations, out twoOpGoodSwaptIterations, out twoOptBestTour);
 
-
-            foreach (int city in twoOptBestTour.Cities)
+            Console.Write("::> " + startTourFList.ToString() + "  START TOUR DISTANCE: " + tspFile.GetTourDistance(startTourFList) + "\n");
+            if (twoOpBesttIterations != -1)
             {
-                Console.Write(" " + city);
-            }          
-            Console.Write("  BEST TOUR DISTANCE: " + twoOptBestDistance + "\n");
+                Console.Write("::> " + twoOptBestTour.ToString() + "  BEST TOUR DISTANCE: " + twoOptBestDistance + "\n");
+                Console.Write("::> " + tspFile.PrintOptTour() + "  OPTIMAL TOUR DISTANCE: " + tspFile.OptDistance + "\n");
 
-            Console.WriteLine();
-            Console.WriteLine("BEST ITERATIONS: " + twoOpBesttIterations);
-            Console.WriteLine("SWAP ITERATIONS: " + twoOpSwaptIterations);
-            Console.WriteLine("GOOD TOURS CHECKED " + TwoOptSwap.goodSwapedTours.Count);
-            Console.WriteLine("TOTAL TOURS CHECKED " + TwoOptSwap.totalSwapedTours.Count);
-            
-            foreach (Tour t in TwoOptSwap.goodSwapedTours)
-            {
-                if(t.Cities[0] != 0) Console.WriteLine("SOMETHING IS DIFERENTE");
+                Console.WriteLine();
+                Console.WriteLine("BEST ITERATIONS: " + twoOpBesttIterations);
+                Console.WriteLine("GOOD ITERATIONS: " + twoOpGoodSwaptIterations);
+                Console.WriteLine("TOTAL SWAP ITERATIONS: " + twoOpSwaptIterations);
             }
+            Console.WriteLine();
+
+            int permutcount = 0;
+            float uglyPermut = Utils.UglyPermutBruteForce(tspFile,out permutcount);
+            Console.WriteLine("UGLY PERMUT: " + uglyPermut + "::" + permutcount);
+
+            // foreach (int[] test in Utils.Permut(new int[] { 0, 1, 2, 4, 5 }))
+            // {
+            //     List<int> ArrayList = test.ToList();
+            //     ArrayList.Add(ArrayList[0]);
+
+            //     foreach (int city in ArrayList)
+            //     {
+            //         Console.Write(" " + city);
+            //     }
+            //     permutcount++;
+            //     Console.WriteLine();
+            // }
+            Console.WriteLine("PERMUT COUNT: " + permutcount);
         }
     }
 }

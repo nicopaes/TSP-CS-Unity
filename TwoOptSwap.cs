@@ -38,14 +38,15 @@ namespace TPS_IA
             //Console.WriteLine("AB: " + a + "::" + b);
             //Console.WriteLine(returnTour.ToString());
 
-            totalSwapedTours.Add(returnTour);
+            //totalSwapedTours.Add(returnTour);
             return returnTour;
         }
 
-        public static float FullTwoOpt(tspclass tsp, Tour StartTour, out int newBestIterations, out int swapIterations, out Tour bestTour)
+
+        public static float FullTwoOpt(tspclass tsp, Tour StartTour, out int newBestIterations, out int swapIterations, out int goodSwapIterations, out Tour bestTour)
         {
-            Console.WriteLine("\nHELLO\n");
             newBestIterations = 0;
+            goodSwapIterations = 0;
             swapIterations = 0;
             int limit = 0;
             bestTour = null;
@@ -54,6 +55,7 @@ namespace TPS_IA
             {
                 newBestIterations = -1;
                 bestTour = null;
+                Console.WriteLine("Sometrhing is wrong with your tour mate");
                 return -1; //Start tour have the wrong size for this particular tsp
             }
 
@@ -62,32 +64,34 @@ namespace TPS_IA
             Tour swapedTour = StartTour;
 
             //LAST BRUTE 2000 && 100000
-            while (newBestIterations < 50 && limit < 100000)
+            //while (newBestIterations < 50 && limit < 250 && swapIterations < 1)
+            while(bestDistance != tsp.OptDistance && limit < 500)
             {
-                for (var i = 1; i < StartTour.Size - 1; i++)
+                for (var i = 1; i < StartTour.Size; i++)
                 {
                     for (var k = i + 1; k < StartTour.Size; k++)
                     {
                         swapIterations++;
                         swapedTour = GetTwoOptSwap(swapedTour, i, k);
-                        //swapIterations+=1;
+
                         if (!swapedTour.CheckStartEnd())
                         {
-                            //swapIterations++;
                             continue;
                         }
-                        goodSwapedTours.Add(swapedTour);
+                        goodSwapIterations++;
                         float newDistance = tsp.GetTourDistance(swapedTour);
+                        
+                        //Console.WriteLine(swapedTour.ToString() + " D: " + newDistance);
 
                         if (newDistance >= bestDistance)
                         {
                             continue;
                         }
-                        else
+                        else //if (newDistance < bestDistance)
                         {
                             //We have a new winner
                             //Console.WriteLine("B: " + bestDistance + "  ND: " + newDistance);
-                            Console.WriteLine("L: " + limit + " SI: " + swapIterations + " BI: " + newBestIterations + "  BEST: " + bestDistance);
+                            //Console.WriteLine("L: " + limit + " SI: " + swapIterations + " BI: " + newBestIterations + "  NEW: " + newDistance + "  BEST: " + bestDistance);
                             bestDistance = newDistance;
                             bestTour = swapedTour;
                             newBestIterations ++;
@@ -95,7 +99,7 @@ namespace TPS_IA
                     }
                 }
                 limit++;
-                Console.WriteLine("L: " + limit + " SI: " + swapIterations + " BI: " + newBestIterations + "  BEST: " + bestDistance);
+                //Console.WriteLine("L: " + limit + " SI: " + swapIterations + " BI: " + newBestIterations + "  BEST: " + bestDistance + ":: " +  swapedTour.ToString());
             }
             Console.WriteLine();
             return bestDistance;

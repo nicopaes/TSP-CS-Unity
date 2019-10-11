@@ -20,3 +20,14 @@ C:\Users\NICOLAS-LAPTOP\Documents\TSP-C-Unity\obj\Debug\netcoreapp2.1\TPS-IA.Ass
 C:\Users\NICOLAS-LAPTOP\Documents\TSP-C-Unity\obj\Debug\netcoreapp2.1\TPS-IA.AssemblyInfo.cs
 C:\Users\NICOLAS-LAPTOP\Documents\TSP-C-Unity\obj\Debug\netcoreapp2.1\TPS-IA.dll
 C:\Users\NICOLAS-LAPTOP\Documents\TSP-C-Unity\obj\Debug\netcoreapp2.1\TPS-IA.pdb
+D:\Projects\TSP-CS-Unity\bin\Debug\netcoreapp2.1\TPS-IA.deps.json
+D:\Projects\TSP-CS-Unity\bin\Debug\netcoreapp2.1\TPS-IA.runtimeconfig.json
+D:\Projects\TSP-CS-Unity\bin\Debug\netcoreapp2.1\TPS-IA.runtimeconfig.dev.json
+D:\Projects\TSP-CS-Unity\bin\Debug\netcoreapp2.1\TPS-IA.dll
+D:\Projects\TSP-CS-Unity\bin\Debug\netcoreapp2.1\TPS-IA.pdb
+D:\Projects\TSP-CS-Unity\obj\Debug\netcoreapp2.1\TPS-IA.csprojAssemblyReference.cache
+D:\Projects\TSP-CS-Unity\obj\Debug\netcoreapp2.1\TPS-IA.AssemblyInfoInputs.cache
+D:\Projects\TSP-CS-Unity\obj\Debug\netcoreapp2.1\TPS-IA.AssemblyInfo.cs
+D:\Projects\TSP-CS-Unity\obj\Debug\netcoreapp2.1\TPS-IA.dll
+D:\Projects\TSP-CS-Unity\obj\Debug\netcoreapp2.1\TPS-IA.pdb
+D:\Projects\TSP-CS-Unity\obj\Debug\netcoreapp2.1\TPS-IA.csproj.CoreCompileInputs.cache

@@ -34,6 +34,7 @@ namespace TPS_IA
 
         public float GetDistance(int cityA, int cityB)
         {
+            //Console.WriteLine("A: " + cityA + " B: " + cityB);
             if (this.Format.Equals(EdgeFormat.LOWER_DIAG_ROW))
             {
                 if (cityA < this.Dimension || cityB < this.Dimension)
@@ -60,6 +61,16 @@ namespace TPS_IA
             //Console.WriteLine(tour.Cities[tour.Cities.Count - 1] + "==>0 ::> " + lastEdge + "\n");
 
             return totalDistance;
+        }
+
+        public string PrintOptTour()
+        {
+            string returnString = "";
+            foreach (int city in this.OptTour)
+            {
+                returnString += " " + city;
+            }
+            return returnString;
         }
     }
 }
