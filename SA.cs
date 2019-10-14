@@ -80,7 +80,7 @@ namespace TPS_IA
                     currTemp *= tempMult;
                     //Console.WriteLine(currTemp);
                     TempIterations++;
-                    if (TempIterations % 5000 == 0) Console.WriteLine("Current Temp: " + currTemp + "  :::>Current Best Tour Distance " + bestDistance);
+                    if (TempIterations % 50000 == 0) Console.WriteLine("Current Temp: " + currTemp + "  :::>Current Best Tour Distance " + bestDistance);
 
                 }
                 SA++;

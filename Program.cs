@@ -123,8 +123,9 @@ namespace TPS_IA
                 }
                 else if (typeOfSearch == 2)
                 {
-
-
+                    for (int i = 5; i >= 0 ; i--)
+                    {
+                        
                     Console.WriteLine("\nSA\n");
 
                     int saBesttIterations = 0;
@@ -151,6 +152,7 @@ namespace TPS_IA
                         Console.WriteLine("TOTAL TWO SWAP ITERATIONS: " + saSwaptIterations);
                     }
                     Console.WriteLine();
+                    }
                 }
                 else
                 {
