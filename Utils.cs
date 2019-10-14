@@ -5,9 +5,9 @@ namespace TPS_IA
 {
     public static class Utils
     {
+        public static Random allRand = new Random();
         public static List<int> GenerateStartList(int cityQtd)
         {
-            Random r = new Random();
             if (cityQtd >= 0)
             {
                 List<int> deckInt = new List<int>();
@@ -19,7 +19,7 @@ namespace TPS_IA
                 }
                 for (int i = 0; i < cityQtd - 1; i++)
                 {
-                    int randIndex = r.Next(0, deckInt.Count);
+                    int randIndex = allRand.Next(0, deckInt.Count);
                     int rand = deckInt[randIndex];
                     shuffleDeckInt.Add(rand);
                     deckInt.RemoveAt(randIndex);
@@ -33,17 +33,40 @@ namespace TPS_IA
             }
         }
 
-        public static List<int> GenerateRandomSet(int sizeSet)
+        public static List<int> GenerateRandomSet(int sizeSet, int sizeRandomSpace)
         {
-            Random r = new Random();
             if (sizeSet >= 0)
             {
                 List<int> deckInt = new List<int>();
                 List<int> shuffleDeckInt = new List<int>();
 
-                while (shuffleDeckInt.Count != 4)
+                while (shuffleDeckInt.Count != sizeSet)
                 {
-                    int randIndex = r.Next(0, sizeSet);
+                    int randIndex = allRand.Next(0, sizeRandomSpace-1);
+                    if (!shuffleDeckInt.Contains(randIndex))
+                    {
+                        shuffleDeckInt.Add(randIndex);
+                    }
+                }
+                shuffleDeckInt.Sort();
+                return shuffleDeckInt;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static List<int> GenerateRandomSetNotZero(int sizeSet, int sizeRandomSpace)
+        {
+            if (sizeSet >= 0)
+            {
+                List<int> deckInt = new List<int>();
+                List<int> shuffleDeckInt = new List<int>();
+
+                while (shuffleDeckInt.Count != sizeSet)
+                {
+                    int randIndex = allRand.Next(1, sizeRandomSpace-1);
                     if (!shuffleDeckInt.Contains(randIndex))
                     {
                         shuffleDeckInt.Add(randIndex);
@@ -136,6 +159,43 @@ namespace TPS_IA
             ts.Milliseconds / 10);
 
             return elapsedTime;
+        }
+
+        public class ILSLimits
+        {
+            public int ILS;
+            public int TwoOpt;
+            public int FourOpt;
+            public float Time;
+
+            public ILSLimits(int iLS, int twoOpt, int fourOpt, float Time)
+            {
+                this.ILS = iLS;
+                this.TwoOpt = twoOpt;
+                this.FourOpt = fourOpt;
+                this.Time = Time;
+            }
+        }
+
+        public class SALimits
+        {
+            public int SA;
+            public float StartTemp;
+            public float TempMult;
+            public float Time;
+
+            public SALimits(int SA, float StartTemp, float TempMult, float Time)
+            {
+                this.SA = SA;
+                this.StartTemp = StartTemp;
+                this.TempMult = TempMult;
+                this.Time = Time;
+            }
+        }
+
+        public static double GetNextRand()
+        {
+            return allRand.NextDouble();
         }
     }
 }
