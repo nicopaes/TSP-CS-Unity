@@ -8,6 +8,7 @@ namespace TPS_IA
         public static Random allRand = new Random();
         public static List<int> GenerateStartList(int cityQtd)
         {
+            //Console.WriteLine("QTD CITY " + cityQtd);
             if (cityQtd >= 0)
             {
                 List<int> deckInt = new List<int>();

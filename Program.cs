@@ -102,7 +102,7 @@ namespace TPS_IA
                     int fourOptSwaptIterations = 0;
 
                     Tour twoOptBestTour = new Tour();
-                    Utils.ILSLimits Limit1 = new Utils.ILSLimits(100, 8000, 1, 120);
+                    Utils.ILSLimits Limit1 = new Utils.ILSLimits(100, 50, 4, 30);
                     stopWatch.Start();
                     float twoOptBestDistance = ILS.IteratedLocalSearch(tspFile, startTourFList, out twoOptBesttIterations, out twoOptSwaptIterations, out fourOptSwaptIterations, out twoOptBestTour, Limit1);
                     stopWatch.Stop();
@@ -122,10 +122,7 @@ namespace TPS_IA
                     Console.WriteLine();
                 }
                 else if (typeOfSearch == 2)
-                {
-                    for (int i = 5; i >= 0 ; i--)
-                    {
-                        
+                {                        
                     Console.WriteLine("\nSA\n");
 
                     int saBesttIterations = 0;
@@ -152,7 +149,7 @@ namespace TPS_IA
                         Console.WriteLine("TOTAL TWO SWAP ITERATIONS: " + saSwaptIterations);
                     }
                     Console.WriteLine();
-                    }
+                    
                 }
                 else
                 {

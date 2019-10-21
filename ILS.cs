@@ -21,6 +21,7 @@ namespace TPS_IA
 
             bestTour = null;
             Stopwatch stopWatch = new Stopwatch();
+            List<Tour> twoOptList = new List<Tour>();
 
 
             if (tsp.Dimension + 1 != StartTour.Size)
@@ -35,7 +36,7 @@ namespace TPS_IA
             float bestDistance = tsp.GetTourDistance(StartTour);
             Tour swapedTour = StartTour;
 
-            Console.WriteLine("ILS RUNNING -- TIME LIMIT: " + Limit.Time);
+            Console.WriteLine("ILS RUNNING -- TIME LIMIT: " + Limit.Time + " TWOOPT: " + Limit.TwoOpt);
             stopWatch.Start();
             while (ILS < Limit.ILS && bestDistance != tsp.OptDistance && stopWatch.ElapsedMilliseconds <= (Limit.Time * 1000f))//(bestDistance != tsp.OptDistance)
             {
@@ -80,9 +81,16 @@ namespace TPS_IA
                             TwoSwapIterations++;
                             swapedTour = TwoOptSwap.GetTwoOptSwap(swapedTour, i, k);
 
+                            // if(twoOptList.FindIndex( x => (x == swapedTour)) 
+                            // {
+                            //     Console.WriteLine(swapedTour.ToString());
+                            //     Console.WriteLine("You're meh");
+                            //     Environment.Exit(-1);
+                            // }
+                            twoOptList.Add(swapedTour);
                             float newDistance = tsp.GetTourDistance(swapedTour);
 
-                            //Console.WriteLine(swapedTour.ToString() + " D: " + newDistance);
+                           
 
                             if (newDistance >= bestDistance)
                             {
